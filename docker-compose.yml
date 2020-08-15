@@ -1,0 +1,41 @@
+version: "3"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile.dev
+    volumes:
+      - './services/api:/app'
+      - '/app/node_modules'
+    ports:
+      - 8080:8080
+  
+  client: 
+    container_name: client
+    build:
+      context: ./services/client
+      dockerfile: Dockerfile.dev
+    volumes:
+      - './services/client:/app'
+      - '/app/node_modules'
+    ports:
+      - 80:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CI=true
+
+  # db:
+  #   image: mongo
+  #   ports:
+  #     - "3306:3306"
+  #   container_name: db
+
+  # imageproxy:
+  #   image: willnorris/imageproxy
+  #   hostname: imageproxy
+  #   command: "-addr 0.0.0.0:80 -scaleUp true"
+  #   ports:
+  #     - "8099:80"
+  #   user: root
