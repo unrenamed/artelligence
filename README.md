@@ -1,0 +1,2 @@
+# artelligence
+Artelligence - diploma project.
