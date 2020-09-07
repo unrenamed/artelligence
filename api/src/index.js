@@ -1,9 +1,9 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const authRoutes = require('./routes/auth.routes');
+const routes = require('./routes');
 const sequelize = require('./configs/db.config');
-const AuthMiddleware = require('./middlewares/auth.middleware');
-const { accessLevels } = require('./configs/app.config');
+
+const { handleError, logError } = require('./utils/error');
 
 const app = express();
 
@@ -16,16 +16,10 @@ db.sync()
     .then(result => console.log('Successfully synchronized with MySQL database!'))
     .catch(err => console.log('[SEQUELIZE ERROR]:', err));
 
-app.use('/auth', authRoutes);
+app.use('/', routes);
 
-// TEST
-app.get('/user', AuthMiddleware.withAuth, (req, res) => {
-    res.status(200).json({ user: req.user });
-});
-
-app.get('/admin', AuthMiddleware.withAuth, AuthMiddleware.allowOnly(accessLevels.ADMIN), (req, res) => {
-    res.status(200).json({ message: 'An access to the most secret info was given! System ADMIN password is... ʰᵃʰᵃ ˢᵗᵘᵖᶦᵈ ˢʰᶦᵗ ᵍᵒ ᶠᵘᶜᵏ ʸᵒᵘʳˢᵉˡᶠ' });
-});
+app.use(logError);
+app.use(handleError);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

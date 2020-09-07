@@ -3,10 +3,14 @@ const AuthController = require('../controllers/auth.controller');
 class AuthMiddleware {
 
     static async withAuth(req, res, next) {
-        const user = await AuthController.verify(req, res);
-        if (!!user) {
-            req.user = user;
-            next();
+        try {
+            const user = await AuthController.verify(req, res, next);
+            if (!!user) {
+                req.user = user;
+                next();
+            }
+        } catch (err) {
+            next(err);
         }
     }
 

@@ -1,57 +1,47 @@
 const { sign: jwtSign, verify: jwtVerify } = require('jsonwebtoken');
 const User = require('../models/user.model');
+const { ErrorHandler } = require('../utils/error');
 
 class AuthController {
 
-    static async authenticate(req, res) {
+    static async authenticate(req, res, next) {
         const { email, password } = req.body;
 
-        try {
-            const user = await User.findOne({
-                where: { email }
-            });
+        const user = await User.findOne({
+            where: { email }
+        });
 
-            if (!user) {
-                sendIncorrectEmailOrPasswordError(res);
-                return;
-            }
-
-            const { same } = await user.comparePasswords(password);
-            if (!same) {
-                sendIncorrectEmailOrPasswordError(res);
-                return;
-            }
-
-            const payload = { email };
-            const token = jwtSign(payload, process.env.AUTH_SECRET, { expiresIn: '1h' });
-
-            res.cookie('token', token, { httpOnly: true })
-                .status(200)
-                .json({ message: `Successfully authenticated user with e-mail: ${email}` });
-        } catch (err) {
-            sendInternalServerError(res);
+        if (!user) {
+            throw new ErrorHandler(401, 'Incorrect email or password');
         }
+
+        const { same } = await user.comparePasswords(password);
+        if (!same) {
+            throw new ErrorHandler(401, 'Incorrect email or password');
+        }
+
+        const payload = { email };
+        const token = jwtSign(payload, process.env.AUTH_SECRET, { expiresIn: '1h' });
+
+        res.cookie('token', token, { httpOnly: true })
+            .status(200)
+            .json({ message: `Successfully authenticated user with e-mail: ${email}` });
     }
 
-    static async register(req, res) {
+    static async register(req, res, next) {
         const { email, password } = req.body;
         const user = new User({ email, password });
 
-        try {
-            const userExist = await isUserExist(user);
-            if (userExist) {
-                res.status(400).json({ error: `Email ${email} already in use` });
-                return;
-            }
-
-            await user.save();
-            res.status(200).json({ message: `Successfully registered new user with email: ${email}` });
-        } catch (err) {
-            res.status(500).json({ error: 'Error registering new user. Please, try again!' });
+        const userExist = await isUserExist(user);
+        if (userExist) {
+            throw new ErrorHandler(400, `Email ${user.email} already in use`);
         }
+
+        await user.save();
+        res.status(200).json({ message: `Successfully registered new user with email: ${email}` });
     }
 
-    static async verify(req, res) {
+    static async verify(req, res, next) {
         const token =
             req.body.token ||
             req.query.token ||
@@ -59,20 +49,15 @@ class AuthController {
             req.cookies.token;
 
         if (!token) {
-            sendNoTokenProvidedError(res);
-            return;
+            throw new ErrorHandler(401, 'Unauthorized: No token provided');
         }
 
-        try {
-            const decoded = jwtVerify(token, process.env.AUTH_SECRET);
-            const user = await User.findOne({
-                attributes: { exclude: ['password'] },
-                where: { email: decoded.email }
-            });
-            return user;
-        } catch (err) {
-            sendInvalidTokenError(res);
-        }
+        const decoded = jwtVerify(token, process.env.AUTH_SECRET);
+        const user = await User.findOne({
+            attributes: { exclude: ['password'] },
+            where: { email: decoded.email }
+        });
+        return user;
     }
 
     static logout(req, res) {
@@ -87,22 +72,6 @@ const isUserExist = async ({ email }) => {
     });
 
     return !!user;
-};
-
-const sendInternalServerError = res => {
-    res.status(500).json({ error: 'Internal server error. Please, try again.' });
-};
-
-const sendIncorrectEmailOrPasswordError = res => {
-    res.status(401).json({ error: 'Incorrect email or password' });
-};
-
-const sendInvalidTokenError = res => {
-    res.status(401).json({ error: 'Unauthorized: Invalid token' });
-};
-
-const sendNoTokenProvidedError = res => {
-    res.status(401).json({ error: 'Unauthorized: No token provided' });
 };
 
 module.exports = AuthController;
