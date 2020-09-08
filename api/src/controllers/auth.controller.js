@@ -1,6 +1,8 @@
 const { sign: jwtSign, verify: jwtVerify } = require('jsonwebtoken');
-const User = require('../models/user.model');
 const { ErrorHandler } = require('../utils/error');
+const { User } = require('../models');
+const { isString, isNil } = require('lodash');
+const { isValidEmail } = require('../utils/validation');
 
 class AuthController {
 
@@ -31,6 +33,8 @@ class AuthController {
     static async register(req, res, next) {
         const { email, password } = req.body;
         const user = new User({ email, password });
+
+        validateUser(user);
 
         const userExist = await isUserExist(user);
         if (userExist) {
@@ -73,5 +77,34 @@ const isUserExist = async ({ email }) => {
 
     return !!user;
 };
+
+const validateUser = user => {
+    let { email, password } = user;
+
+    console.log(user);
+
+    // Email
+    if (isNil(email)) {
+        throw new ErrorHandler(400, 'Email is missed ');
+    }
+
+    if (!isValidEmail(email)) {
+        throw new ErrorHandler(400, 'Email is not valid');
+    }
+
+    // Password
+    if (isNil(password)) {
+        throw new ErrorHandler(400, 'Password is missed');
+    }
+
+    if (!isString(password)) {
+        throw new ErrorHandler(400, 'Password can be only be string');
+    }
+
+    if (password.length < 4) {
+        throw new ErrorHandler(400, 'Password should contain min 4 characters');
+    }
+};
+
 
 module.exports = AuthController;

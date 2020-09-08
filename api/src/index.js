@@ -2,7 +2,6 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const sequelize = require('./configs/db.config');
-
 const { handleError, logError } = require('./utils/error');
 
 const app = express();
@@ -13,7 +12,7 @@ app.use(cookieParser());
 
 const db = sequelize;
 db.sync()
-    .then(result => console.log('Successfully synchronized with MySQL database!'))
+    .then(_ => console.log('Successfully synchronized with MySQL database!'))
     .catch(err => console.log('[SEQUELIZE ERROR]:', err));
 
 app.use('/', routes);

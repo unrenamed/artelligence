@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 const DB_CONFIG = {
     DB: process.env.MYSQL_DATABASE,
@@ -14,7 +14,7 @@ const DB_CONFIG = {
     }
 };
 
-module.exports = new Sequelize(DB_CONFIG.DB, DB_CONFIG.USER, DB_CONFIG.PASSWORD, {
+const sequelize = new Sequelize(DB_CONFIG.DB, DB_CONFIG.USER, DB_CONFIG.PASSWORD, {
     host: DB_CONFIG.HOST,
     dialect: DB_CONFIG.dialect,
     operatorsAliases: 0,
@@ -25,3 +25,5 @@ module.exports = new Sequelize(DB_CONFIG.DB, DB_CONFIG.USER, DB_CONFIG.PASSWORD,
         idle: DB_CONFIG.pool.idle
     }
 });
+
+module.exports = sequelize;
