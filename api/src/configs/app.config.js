@@ -7,9 +7,9 @@ var userRoles = config.userRoles = {
 };
 
 config.accessLevels = {
-    GUEST: userRoles.guest | userRoles.user | userRoles.admin,
-    USER: userRoles.user | userRoles.admin,
-    ADMIN: userRoles.admin
+    GUEST: userRoles.GUEST | userRoles.USER | userRoles.ADMIN,
+    USER: userRoles.USER | userRoles.ADMIN,
+    ADMIN: userRoles.ADMIN
 };
 
 config.skillLevels = {

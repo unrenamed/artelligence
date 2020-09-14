@@ -1,99 +1,72 @@
-const { isEmpty, isFinite, trim, isNil } = require('lodash');
-const { ErrorHandler } = require('../utils/error');
-const { BEGINNER, EXPERT } = require('../configs/app.config').skillLevels;
-const { Lesson, Course } = require('../models');
+const { pick } = require('lodash');
 
 class CourseController {
 
-    static async create(req, res) {
-        const { title, description, price, level } = req.body;
-        const course = new Course({ title, description, price, level });
+    constructor({ courseService }) {
+        this.courseService = courseService;
 
-        validateCourse(course);
-
-        await course.save();
-        res.status(201).json({ message: `'${title}' course was successfully created!` });
+        this.create = this.create.bind(this);
+        this.getAll = this.getAll.bind(this);
+        this.getById = this.getById.bind(this);
+        this.addLesson = this.addLesson.bind(this);
+        this.rateCourse = this.rateCourse.bind(this);
+        this.startCourse = this.startCourse.bind(this);
+        this.completeLesson = this.completeLesson.bind(this);
     }
 
-    static async getAll(req, res) {
-        const allCourses = await Course.findAll();
-        res.status(200).json(allCourses);
+    async create(req, res) {
+        const courseDTO = pick(req.body, ['title', 'description', 'price', 'level']);
+        const course = await this.courseService.create(courseDTO);
+
+        return res.status(201).json({
+            message: 'New course was successfully added to the system',
+            data: course
+        });
     }
 
-    static async getById(req, res) {
+    async getAll(req, res) {
+        const courses = await this.courseService.getAll();
+        res.status(200).json(courses);
+    }
+
+    async getById(req, res) {
         const { courseId } = req.params;
-        const course = await Course.findByPk(courseId, { include: ['lessons'] });
-
-        if (isNil(course)) {
-            throw new ErrorHandler(400, `Course with ID = ${courseId} parameter was not found`);
-        }
-
+        const course = await this.courseService.getById(courseId);
         res.status(200).json(course);
     }
 
-    static async addLesson(req, res) {
-        const courseId = req.params.courseId;
-        const { title } = req.body;
-        const lesson = new Lesson({ title, courseId });
+    async addLesson(req, res) {
+        const { courseId } = req.params;
+        const { title, number } = req.body;
+        const lessonDTO = {
+            title, number, courseId
+        };
 
-        validateLesson(lesson);
-
-        await lesson.save();
-        res.status(201).json({ message: `${title} lesson was successfully added to course` });
+        const lesson = await this.courseService.addLesson(lessonDTO);
+        res.status(201).json({
+            message: `New lesson was successfully added to the system`,
+            data: lesson
+        });
     }
+
+    async rateCourse(req, res) {
+        const { courseId } = req.params;
+        const { id: userId } = req.user;
+        const { rating } = req.body;
+        const ratingDTO = {
+            courseId, userId, rating
+        };
+
+        const courseRating = await this.courseService.rateCourse(ratingDTO);
+        res.status(201).json({
+            message: `Course ${courseId} was successfully rate by user ${userId} with rating ${rating}`,
+            data: courseRating
+        })
+    }
+
+    async startCourse(req, res) { }
+
+    async completeLesson(req, res) { }
 }
-
-const validateCourse = course => {
-    let { title, description, price, level } = course;
-
-    title = trim(title);
-    description = trim(description);
-
-    // Title
-    if (isEmpty(title) || title.length < 5) {
-        throw new ErrorHandler(400, 'Title is empty or less than 5 characters');
-    }
-
-    // Description
-    if (isEmpty(description) || description.length < 100) {
-        throw new ErrorHandler(400, 'Description is empty or less than 100 characters');
-    }
-
-    // Price
-    if (!isNil(price)) {
-
-        if (!isFinite(price)) {
-            throw new ErrorHandler(400, 'Price is not a number');
-        }
-
-        if (price < 0) {
-            throw new ErrorHandler(400, 'Price can not be a negative number');
-        }
-    }
-
-    // Level
-    if (!isNil(level)) {
-
-        if (!isFinite(level)) {
-            throw new ErrorHandler(400, 'Level is not a number');
-        }
-
-        if (level < BEGINNER || level > EXPERT) {
-            throw new ErrorHandler(400, `Supported levels should be between ${BEGINNER}-${EXPERT}, inclusively`);
-        }
-
-    }
-};
-
-const validateLesson = lesson => {
-    let { title } = lesson;
-
-    title = trim(title);
-
-    // Title
-    if (isEmpty(title) || title.length < 5) {
-        throw new ErrorHandler(400, 'Title is empty or less than 5 characters');
-    }
-};
 
 module.exports = CourseController;

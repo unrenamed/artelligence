@@ -13,12 +13,19 @@ module.exports = sequelize => {
             allowNull: false
         },
 
-        isCompleted: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
+        number: {
+            type: DataTypes.TINYINT,
             allowNull: false
         }
-    });
+    },
+        {
+            indexes: [
+                {
+                    unique: true,
+                    fields: ['courseId', 'number']
+                }
+            ]
+        });
 
     Lesson.associate = models => {
         const { Course } = models;

@@ -1,10 +1,30 @@
-const AuthController = require('../controllers/auth.controller');
+const { ErrorHandler } = require('../utils/error');
+const { verify: jwtVerify } = require('jsonwebtoken');
 
 class AuthMiddleware {
 
-    static async withAuth(req, res, next) {
+    constructor({ userService }) {
+        this.userService = userService;
+
+        this.withAuth = this.withAuth.bind(this);
+        this.allowOnly = this.allowOnly.bind(this);
+    }
+
+    async withAuth(req, res, next) {
         try {
-            const user = await AuthController.verify(req, res, next);
+            const token =
+                req.body.token ||
+                req.query.token ||
+                req.headers['x-access-token'] ||
+                req.cookies.token;
+
+            if (!token) {
+                throw new ErrorHandler(401, 'Unauthorized: No token provided');
+            }
+
+            const decoded = jwtVerify(token, process.env.AUTH_SECRET);
+            const user = await this.userService.getUserByEmail(decoded.email);
+
             if (!!user) {
                 req.user = user;
                 next();
@@ -14,7 +34,7 @@ class AuthMiddleware {
         }
     }
 
-    static allowOnly(accessLevel) {
+    allowOnly(accessLevel) {
         const checkUserRole = (req, res, next) => {
             if (req.user && !(accessLevel & req.user.role)) {
                 res.sendStatus(403);
