@@ -1,50 +1,50 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = sequelize => {
-    const Course = sequelize.define('course', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
+		const Course = sequelize.define('course', {
+				id: {
+						type: DataTypes.INTEGER,
+						primaryKey: true,
+						autoIncrement: true
+				},
 
-        title: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+				title: {
+						type: DataTypes.STRING,
+						allowNull: false
+				},
 
-        description: {
-            type: DataTypes.TEXT,
-            allowNull: false
-        },
+				description: {
+						type: DataTypes.TEXT,
+						allowNull: false
+				},
 
-        level: {
-            type: DataTypes.INTEGER
-        },
+				level: {
+						type: DataTypes.INTEGER
+				},
 
-        price: {
-            type: DataTypes.DECIMAL(8, 2),
-            defaultValue: 0.0,
-            allowNull: false
-        },
+				price: {
+						type: DataTypes.DECIMAL(8, 2),
+						defaultValue: 0.0,
+						allowNull: false
+				},
 
-        isPremiumFree: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
-            allowNull: false
-        },
+				isPremiumFree: {
+						type: DataTypes.BOOLEAN,
+						defaultValue: false,
+						allowNull: false
+				},
 
-        isActive: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: true,
-            allowNull: false
-        }
-    });
+				isActive: {
+						type: DataTypes.BOOLEAN,
+						defaultValue: true,
+						allowNull: false
+				}
+		});
 
-    Course.associate = models => {
-        const { Lesson } = models;
-        Course.hasMany(Lesson, { as: 'lessons' });
-    };
+		Course.associate = models => {
+				const { Lesson } = models;
+				Course.hasMany(Lesson, { as: 'lessons' });
+		};
 
-    return Course;
-}
+		return Course;
+};

@@ -5,3 +5,5 @@ dist
 .npm
 .vscode
 .docker
+.idea
+npm-debug.log

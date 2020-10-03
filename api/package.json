@@ -1,29 +1,29 @@
 {
-    "name": "api",
-    "version": "0.1.0",
-    "private": true,
-    "main": "src/index.js",
-    "scripts": {
-        "start": "nodemon src/index.js",
-        "babel-node": "babel-node",
-        "build": "babel src --out-dir dist --source-maps inline"
-    },
-    "dependencies": {
-        "app-root-path": "^3.0.0",
-        "awilix": "^4.2.6",
-        "bcryptjs": "^2.4.3",
-        "body-parser": "^1.19.0",
-        "cookie-parser": "^1.4.5",
-        "email-validator": "^2.0.4",
-        "express": "^4.17.1",
-        "intel": "^1.2.0",
-        "jsonwebtoken": "^8.5.1",
-        "lodash": "^4.17.20",
-        "log4js": "^6.3.0",
-        "mysql2": "^2.1.0",
-        "sequelize": "^6.3.4"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.4"
-    }
+  "name": "api",
+  "version": "0.1.0",
+  "private": true,
+  "main": "src/index.js",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "babel-node": "babel-node",
+    "build": "babel src --out-dir dist --source-maps inline"
+  },
+  "dependencies": {
+    "app-root-path": "^3.0.0",
+    "awilix": "^4.2.6",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "email-validator": "^2.0.4",
+    "express": "^4.17.1",
+    "intel": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
+    "log4js": "^6.3.0",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }

@@ -12,8 +12,8 @@ app.use(cookieParser());
 
 const db = sequelize;
 db.sync()
-    .then(_ => console.log('Successfully synchronized with MySQL database!'))
-    .catch(err => console.log('[SEQUELIZE ERROR]:', err));
+		.then(_ => console.log('Successfully synchronized with MySQL database!'))
+		.catch(err => console.log('[SEQUELIZE ERROR]:', err));
 
 app.use('/', routes);
 
@@ -21,4 +21,4 @@ app.use(logError);
 app.use(handleError);
 
 const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${ PORT }`));

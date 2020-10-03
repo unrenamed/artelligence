@@ -7,20 +7,20 @@ services:
       context: ./api
       dockerfile: Dockerfile.dev
     environment:
-      MYSQL_DATABASE: 'project'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: '4444'
+      MYSQL_DATABASE: 'artelligence_local'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: '3333'
       MYSQL_HOSTNAME: 'db'
       AUTH_SECRET: 'super-project-secret'
-    depends_on: 
+    depends_on:
       - db
     volumes:
       - './api:/app'
       - '/app/node_modules'
     ports:
       - 8080:8080
-  
-  client: 
+
+  client:
     container_name: client
     build:
       context: ./client
@@ -39,9 +39,7 @@ services:
     image: mysql:5.7
     restart: always
     environment:
-      MYSQL_DATABASE: 'project'
-      MYSQL_USER: 'user'
-      MYSQL_PASSWORD: '4444'
+      MYSQL_DATABASE: 'artelligence_local'
       MYSQL_ROOT_PASSWORD: '3333'
     volumes:
       - /data/mysql:/var/lib/mysql
@@ -49,7 +47,7 @@ services:
       - '3306:3306'
     expose:
       - '3306'
-    
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
@@ -57,8 +55,8 @@ services:
       RABBITMQ_DEFAULT_USER: 'rabbit-root'
       RABBITMQ_DEFAULT_PASS: '4444'
     ports:
-        - 5672:5672
-        - 15672:15672
+      - 5672:5672
+      - 15672:15672
 
   # imageproxy:
   #   image: willnorris/imageproxy
