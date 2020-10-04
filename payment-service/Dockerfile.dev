@@ -1,6 +1,6 @@
 FROM node:13.12.0-alpine as builder
 
-ARG APP_WORKDIR=/artelligence/api
+ARG APP_WORKDIR=/artelligence/payment-service
 ARG COMMON_WORKDIR=/artelligence/common
 
 WORKDIR $APP_WORKDIR
@@ -13,10 +13,10 @@ COPY common/package.json $COMMON_WORKDIR/package.json
 COPY common/package-lock.json $COMMON_WORKDIR/package-lock.json
 RUN npm install
 
-COPY /api $APP_WORKDIR
+COPY /payment-service $APP_WORKDIR
 COPY /common $COMMON_WORKDIR
 
-EXPOSE 8080
+EXPOSE 8090
 
 WORKDIR $APP_WORKDIR
 CMD ["npm", "start"]

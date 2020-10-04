@@ -1,6 +1,9 @@
-const { ErrorHandler } = require('../utils/error');
-const { isNil, isString } = require('lodash');
-const { isValidEmail } = require('../utils/validation');
+import {
+		isNil,
+		isString
+} from 'lodash';
+import { ErrorHandler } from '../../../common/errors/error';
+import { isValidEmail } from '../utils/validation';
 
 class AuthValidator {
 
@@ -31,4 +34,4 @@ class AuthValidator {
 		}
 }
 
-module.exports = AuthValidator;
+export default AuthValidator;

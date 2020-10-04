@@ -1,4 +1,4 @@
-const { Sequelize } = require('sequelize');
+import { Sequelize } from 'sequelize';
 
 const DB_CONFIG = {
 		DB: process.env.MYSQL_DATABASE,
@@ -26,4 +26,4 @@ const sequelize = new Sequelize(DB_CONFIG.DB, DB_CONFIG.USER, DB_CONFIG.PASSWORD
 		}
 });
 
-module.exports = sequelize;
+export default sequelize;

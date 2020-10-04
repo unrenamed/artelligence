@@ -1,8 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { catchAsync } = require('../utils/error');
+import express from 'express';
+import { catchAsync } from '../../../common/errors/error';
+import container from '../container';
 
-const container = require('../container');
+const router = express.Router();
+
 const { register, authenticate, logout } = container.cradle.authController;
 const { withAuth } = container.cradle.authMiddleware;
 
@@ -12,4 +13,4 @@ router.post('/authenticate', catchAsync(authenticate));
 
 router.post('/logout', withAuth, logout);
 
-module.exports = router;
+export default router;

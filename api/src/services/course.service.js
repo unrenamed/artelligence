@@ -1,7 +1,9 @@
-const { Lesson, Course, CourseRating } = require('../models');
-const { ErrorHandler } = require('../utils/error');
-const { avg } = require('../utils');
-const { map } = require('lodash');
+import { map } from 'lodash';
+import { ErrorHandler } from '../../../common/errors/error';
+import models from '../models';
+import { avg } from '../utils';
+
+const { Lesson, Course, CourseRating } = models;
 
 class CourseService {
 
@@ -18,8 +20,7 @@ class CourseService {
 		}
 
 		async getAll() {
-				const allCourses = await Course.findAll();
-				return allCourses;
+				return await Course.findAll();
 		}
 
 		async getById(courseId) {
@@ -41,11 +42,10 @@ class CourseService {
 						throw new ErrorHandler(400, `Course with ID = ${ courseId } parameter was not found`);
 				}
 
-				const result = {
+				return {
 						...course.dataValues,
 						rating: await this.getCourseRating(course)
 				};
-				return result;
 		}
 
 		async addLesson(lessonDTO) {
@@ -89,4 +89,4 @@ class CourseService {
 		}
 }
 
-module.exports = CourseService;
+export default CourseService;

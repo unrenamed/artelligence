@@ -1,10 +1,14 @@
-const { hash, compare, genSalt } = require('bcryptjs');
-const config = require('../configs/app.config');
-const { DataTypes } = require('sequelize');
+import {
+		hash,
+		compare,
+		genSalt
+} from 'bcryptjs';
+import { DataTypes } from 'sequelize';
+import config from '../config/app.config';
 
 const SALT_ROUNDS = 10;
 
-module.exports = sequelize => {
+export default sequelize => {
 		const User = sequelize.define('user', {
 				id: {
 						type: DataTypes.INTEGER,

@@ -1,6 +1,8 @@
-const { User } = require('../models');
-const { ErrorHandler } = require('../utils/error');
-const { sign: jwtSign } = require('jsonwebtoken');
+import { sign as jwtSign } from 'jsonwebtoken';
+import { ErrorHandler } from '../../../common/errors/error';
+import models from '../models';
+
+const { User } = models;
 
 class AuthService {
 
@@ -42,4 +44,4 @@ class AuthService {
 		}
 }
 
-module.exports = AuthService;
+export default AuthService;

@@ -1,7 +1,3 @@
-const validator = require('email-validator');
+import validator from 'email-validator';
 
-const isValidEmail = email => validator.validate(email);
-
-module.exports = {
-		isValidEmail
-};
+export const isValidEmail = email => validator.validate(email);

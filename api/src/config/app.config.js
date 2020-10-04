@@ -20,4 +20,4 @@ config.skillLevels = {
 		EXPERT: 4
 };
 
-module.exports = config;
+export default config;

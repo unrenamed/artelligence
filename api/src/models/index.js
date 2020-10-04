@@ -1,6 +1,6 @@
-const sequelize = require('../configs/db.config');
-const fs = require('fs');
-const { keys } = require('lodash');
+import fs from 'fs';
+import { keys } from 'lodash';
+import sequelize from '../config/db.config';
 
 const getModuleNameFromFile = file => {
 		const name = file.split('.')[0];
@@ -15,7 +15,7 @@ fs
 		.filter(file => file.endsWith('.model.js'))
 		.forEach(file => {
 				const name = getModuleNameFromFile(file);
-				const model = require(__dirname + '/' + file);
+				const model = require(__dirname + '/' + file).default;
 				models[name] = model(sequelize);
 		});
 
@@ -26,4 +26,4 @@ keys(models).forEach(model => {
 		}
 });
 
-module.exports = models;
+export default models;

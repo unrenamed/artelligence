@@ -1,5 +1,2 @@
-const avg = (values = []) => values.reduce((previous, current) => current += previous) / values.length;
-
-module.exports = {
-		avg
-};
+export const avg = (values = []) =>
+		values.reduce((previous, current) => current += previous) / values.length;

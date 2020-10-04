@@ -1,4 +1,4 @@
-const { pick } = require('lodash');
+import { pick } from 'lodash';
 
 class CourseController {
 
@@ -80,4 +80,4 @@ class CourseController {
 		}
 }
 
-module.exports = CourseController;
+export default CourseController;

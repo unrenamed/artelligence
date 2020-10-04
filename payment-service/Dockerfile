@@ -14,5 +14,5 @@ COPY --from=builder /app/dist /app
 COPY package.json /app/package.json
 COPY package-lock.json /app/package-lock.json
 RUN npm install --only=prod
-EXPOSE 8080 
+EXPOSE 8090
 CMD ["node", "index.js"]

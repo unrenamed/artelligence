@@ -1,4 +1,6 @@
-const { User } = require('../models');
+import models from '../models';
+
+const { User } = models;
 
 class UserService {
 
@@ -13,8 +15,9 @@ class UserService {
 		}
 
 		async isUserExist({ email }) {
-				return !!this.getUserByEmail(email);
+				const user = await this.getUserByEmail(email);
+				return !!user;
 		}
 }
 
-module.exports = UserService;
+export default UserService;

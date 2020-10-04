@@ -1,9 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const { catchAsync } = require('../utils/error');
-const { accessLevels } = require('../configs/app.config');
+import express from 'express';
+import { catchAsync } from '../../../common/errors/error';
+import config from '../config/app.config';
+import container from '../container';
 
-const container = require('../container');
+const router = express.Router();
+
+const { accessLevels } = config;
+
 const { withAuth, allowOnly } = container.cradle.authMiddleware;
 const {
 		getAll,
@@ -29,4 +32,4 @@ router.post('/:courseId/rate', withAuth, catchAsync(rateCourse));
 
 router.post('/:courseId/start', withAuth, catchAsync(startCourse));
 
-module.exports = router;
+export default router;

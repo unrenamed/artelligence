@@ -1,5 +1,5 @@
-const { ErrorHandler } = require('../utils/error');
-const { verify: jwtVerify } = require('jsonwebtoken');
+import { verify as jwtVerify } from 'jsonwebtoken';
+import { ErrorHandler } from '../../../common/errors/error';
 
 class AuthMiddleware {
 
@@ -48,4 +48,4 @@ class AuthMiddleware {
 		}
 }
 
-module.exports = AuthMiddleware;
+export default AuthMiddleware;

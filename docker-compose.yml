@@ -4,8 +4,8 @@ services:
   api:
     container_name: api
     build:
-      context: ./api
-      dockerfile: Dockerfile.dev
+      context: .
+      dockerfile: ./api/Dockerfile.dev
     environment:
       MYSQL_DATABASE: 'artelligence_local'
       MYSQL_USER: 'root'
@@ -15,8 +15,8 @@ services:
     depends_on:
       - db
     volumes:
-      - './api:/app'
-      - '/app/node_modules'
+      - './api:/artelligence/api'
+      - './common:/artelligence/common'
     ports:
       - 8080:8080
 
@@ -25,9 +25,6 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile.dev
-    volumes:
-      - './client:/app'
-      - '/app/node_modules'
     ports:
       - 80:3000
     environment:
@@ -58,7 +55,20 @@ services:
       - 5672:5672
       - 15672:15672
 
-  # imageproxy:
+  payment-service:
+    container_name: payment-service
+    build:
+      context: .
+      dockerfile: ./payment-service/Dockerfile.dev
+    environment:
+      STRIPE_API_KEY: 'no-key'
+    ports:
+      - 8090:8090
+    volumes:
+      - './payment-service:/artelligence/payment-service'
+      - './common:/artelligence/common'
+
+  # imageprox
   #   image: willnorris/imageproxy
   #   hostname: imageproxy
   #   command: "-addr 0.0.0.0:80 -scaleUp true"

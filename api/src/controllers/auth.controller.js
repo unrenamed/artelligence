@@ -1,4 +1,4 @@
-const { pick } = require('lodash');
+import { pick } from 'lodash';
 
 class AuthController {
 
@@ -38,4 +38,4 @@ class AuthController {
 		}
 }
 
-module.exports = AuthController;
+export default AuthController;

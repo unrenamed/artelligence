@@ -1,4 +1,4 @@
-const logger = require('../configs/logger.config');
+import logger from '../config/logger.config';
 
 class ErrorHandler extends Error {
 		constructor(statusCode, message) {
@@ -34,7 +34,7 @@ const logError = (err, req, res, next) => {
 		next(err);
 };
 
-module.exports = {
+export {
 		ErrorHandler,
 		handleError,
 		logError,

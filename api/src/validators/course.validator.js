@@ -1,6 +1,13 @@
-const { ErrorHandler } = require('../utils/error');
-const { trim, isFinite, isNil, isEmpty } = require('lodash');
-const { BEGINNER, EXPERT } = require('../configs/app.config').skillLevels;
+import {
+		trim,
+		isFinite,
+		isNil,
+		isEmpty
+} from 'lodash';
+import { ErrorHandler } from '../../../common/errors/error';
+import config from '../config/app.config';
+
+const { BEGINNER, EXPERT } = config.skillLevels;
 
 class CourseValidator {
 
@@ -71,4 +78,4 @@ class CourseValidator {
 		}
 }
 
-module.exports = CourseValidator;
+export default CourseValidator;

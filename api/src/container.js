@@ -1,16 +1,19 @@
-const { createContainer, asClass, asValue } = require('awilix');
+import {
+		createContainer,
+		asClass,
+		asValue
+} from 'awilix';
 
-const CourseController = require('./controllers/course.controller');
-const CourseService = require('./services/course.service');
-const CourseValidator = require('./validators/course.validator');
+import CourseController from './controllers/course.controller';
+import CourseService from './services/course.service';
+import CourseValidator from './validators/course.validator';
 
-const AuthController = require('./controllers/auth.controller');
-const AuthService = require('./services/auth.service');
-const AuthValidator = require('./validators/auth.validator');
+import AuthController from './controllers/auth.controller';
+import AuthService from './services/auth.service';
+import AuthValidator from './validators/auth.validator';
+import AuthMiddleware from './middlewares/auth.middleware';
 
-const UserService = require('./services/user.service');
-
-const AuthMiddleware = require('./middlewares/auth.middleware');
+import UserService from './services/user.service';
 
 const container = createContainer();
 
@@ -43,4 +46,4 @@ container.register({
 		timeout: asValue(1000)
 });
 
-module.exports = container;
+export default container;
