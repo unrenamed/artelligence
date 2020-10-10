@@ -15,7 +15,8 @@ const {
 		addLesson,
 		completeLesson,
 		rateCourse,
-		startCourse
+		getCourseProgress,
+		purchaseCourse
 } = container.cradle.courseController;
 
 router.get('/', catchAsync(getAll));
@@ -26,10 +27,12 @@ router.post('/', withAuth, allowOnly(accessLevels.ADMIN), catchAsync(create));
 
 router.post('/:courseId/lessons', withAuth, allowOnly(accessLevels.ADMIN), catchAsync(addLesson));
 
-router.post('/:courseId/lesssons/:lessonId/complete', withAuth, catchAsync(completeLesson));
+router.post('/:courseId/lessons/:lessonId/complete', withAuth, catchAsync(completeLesson));
 
 router.post('/:courseId/rate', withAuth, catchAsync(rateCourse));
 
-router.post('/:courseId/start', withAuth, catchAsync(startCourse));
+router.get('/:courseId/progress', withAuth, catchAsync(getCourseProgress));
+
+router.post('/:courseId/purchase', withAuth, catchAsync(purchaseCourse));
 
 export default router;

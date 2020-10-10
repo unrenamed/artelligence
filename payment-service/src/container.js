@@ -4,9 +4,11 @@ import {
 		asValue
 } from 'awilix';
 
-import PaymentController from './controllers/payment.controller';
 import StripeClient from './helpers/stripe.client';
+
+import PaymentController from './controllers/payment.controller';
 import PaymentService from './services/payment.service';
+import PaymentValidator from './validators/payment.validator';
 
 const container = createContainer();
 
@@ -18,6 +20,11 @@ container.register({
 // Register services
 container.register({
 		paymentService: asClass(PaymentService)
+});
+
+// Register validators
+container.register({
+		paymentValidator: asClass(PaymentValidator)
 });
 
 // Register helper functions/values

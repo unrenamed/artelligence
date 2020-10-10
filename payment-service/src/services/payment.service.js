@@ -1,18 +1,17 @@
 class PaymentService {
 
-		constructor({ stripeClient }) {
+		constructor({ stripeClient, paymentValidator }) {
 				this.stripeClient = stripeClient;
+				this.paymentValidator = paymentValidator;
 		}
 
-		async charge({ amount, source, receipt_email }) {
-				const chargeData = {
-						amount,
-						currency: 'usd',
-						source,
-						receipt_email
-				};
+		async charge(chargeData) {
+				this.paymentValidator.validateCharge(chargeData);
 
-				return await this.stripeClient.charges.create(chargeData);
+				return await this.stripeClient.charges.create({
+						...chargeData,
+						currency: 'usd'
+				});
 		}
 }
 

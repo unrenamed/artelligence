@@ -1,9 +1,10 @@
 import { map } from 'lodash';
 import { ErrorHandler } from '../../../common/errors/error';
 import models from '../models';
+import { upsert } from '../models/utils';
 import { avg } from '../utils';
 
-const { Lesson, Course, CourseRating } = models;
+const { Lesson, Course, CourseRating, LessonProgress } = models;
 
 class CourseService {
 
@@ -49,17 +50,7 @@ class CourseService {
 		}
 
 		async addLesson(lessonDTO) {
-				this.courseValidator.validateLesson(lessonDTO);
-
-				const courseExist = !!await Course.findByPk(lessonDTO.courseId);
-				if (!courseExist) {
-						throw new ErrorHandler(400, `Can not add a lesson to a non-existing course`);
-				}
-
-				const lessonExist = !!await Lesson.findOne({ where: { number: lessonDTO.number } });
-				if (lessonExist) {
-						throw new ErrorHandler(400, `Lesson with number=${ lessonDTO.number } already exists for course with ID=${ lessonDTO.courseId }`);
-				}
+				await this.courseValidator.validateLesson(lessonDTO);
 
 				const lesson = new Lesson(lessonDTO);
 				await lesson.save();
@@ -67,10 +58,7 @@ class CourseService {
 		}
 
 		async rateCourse(ratingDTO) {
-				const courseExist = !!await Course.findByPk(ratingDTO.courseId);
-				if (!courseExist) {
-						throw new ErrorHandler(400, `Can not rate a non-existing course`);
-				}
+				await this.courseValidator.validateCourseRating(ratingDTO);
 
 				const rating = new CourseRating(ratingDTO);
 				await rating.save();
@@ -82,10 +70,41 @@ class CourseService {
 				return avg(ratings);
 		}
 
-		async startCourse() { /*TODO*/
+		async getCourseProgress(courseId, userId) {
+				const lessonsIds = map(await Lesson.findAll({ where: { courseId } }), 'id');
+				const lessonsProgresses = await LessonProgress.findAll({
+						where: {
+								lessonId: lessonsIds,
+								userId
+						}
+				});
+				return map(lessonsProgresses, ({ id, lessonId, isCompleted }) => ({ id, lessonId, isCompleted, courseId }));
 		}
 
-		async completeLesson() { /*TODO*/
+		async completeLesson(lessonId, userId, completeData) {
+				await this.courseValidator.validateLessonCompletion(lessonId, userId);
+
+				const progress = { lessonId, userId, isCompleted: true, ...completeData };
+				await upsert(LessonProgress, { lessonId, userId }, progress);
+
+				const lesson = await Lesson.findByPk(lessonId);
+				const nextLesson = await Lesson.findOne({
+						where: { courseId: lesson.courseId, number: lesson.number + 1 },
+						attributes: ['id']
+				});
+
+				if (!nextLesson) {
+						return `Course with ID = ${ lesson.courseId } is completed by user with ID = ${ userId }`;
+				}
+
+				// Create the progress for the next lesson
+				await LessonProgress.create({ lessonId: nextLesson.id, userId, isCompleted: false });
+				return `Lesson ${ lessonId } was successfully completed by user ${ userId }`;
+		}
+
+		async purchaseCourse(courseId) {
+				console.log(`${ courseId } - purchased`);
+				// TODO
 		}
 }
 

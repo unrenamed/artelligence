@@ -3,7 +3,7 @@ import {
 		isString
 } from 'lodash';
 import { ErrorHandler } from '../../../common/errors/error';
-import { isValidEmail } from '../utils/validation';
+import { isValidEmail } from '../../../common/utils/validation';
 
 class AuthValidator {
 

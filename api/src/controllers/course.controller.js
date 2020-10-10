@@ -1,4 +1,5 @@
 import { pick } from 'lodash';
+import request from 'request-promise-native';
 
 class CourseController {
 
@@ -10,8 +11,9 @@ class CourseController {
 				this.getById = this.getById.bind(this);
 				this.addLesson = this.addLesson.bind(this);
 				this.rateCourse = this.rateCourse.bind(this);
-				this.startCourse = this.startCourse.bind(this);
+				this.purchaseCourse = this.purchaseCourse.bind(this);
 				this.completeLesson = this.completeLesson.bind(this);
+				this.getCourseProgress = this.getCourseProgress.bind(this);
 		}
 
 		async create(req, res) {
@@ -73,10 +75,37 @@ class CourseController {
 				});
 		}
 
-		async startCourse(req, res) {
+		async purchaseCourse(req, res) {
+				const { courseId } = req.params;
+				const { id: userId } = req.user;
+
+				const paymentResult = await request.post('http://payment-service:8090/api/charge', { form: req.body });
+				const purchaseResult = await this.courseService.purchaseCourse(courseId);
+
+				res.status(201).json({
+						message: `Course ${ courseId } was successfully purchased by user ${ userId }`,
+						data: {
+								paymentResult,
+								purchaseResult
+						}
+				});
 		}
 
 		async completeLesson(req, res) {
+				const { lessonId } = req.params;
+				const { id: userId } = req.user;
+				const completeData = req.body;
+
+				const completeMessage = await this.courseService.completeLesson(lessonId, userId, completeData);
+
+				res.status(201).json({ message: completeMessage });
+		}
+
+		async getCourseProgress(req, res) {
+				const { courseId } = req.params;
+				const { id: userId } = req.user;
+				const progress = await this.courseService.getCourseProgress(courseId, userId);
+				res.status(200).json(progress);
 		}
 }
 
