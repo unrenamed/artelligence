@@ -30,6 +30,9 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
       - CI=true
+      - STRIPE_API_PUBLIC_KEY=pk_test_kKuARa71epB6JrYPuDJm7nRL
+    volumes:
+      - ./client:/app
 
   db:
     container_name: db
@@ -61,7 +64,7 @@ services:
       context: .
       dockerfile: ./payment-service/Dockerfile.dev
     environment:
-      STRIPE_API_KEY: 'no-key'
+      STRIPE_API_SECRET_KEY: 'sk_test_38FiGiyQl31vJ1igwljisMPY'
     ports:
       - 8090:8090
     volumes:
