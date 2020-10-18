@@ -2,6 +2,7 @@
   "name": "api",
   "version": "0.1.0",
   "main": "index.js",
+  "private": true,
   "scripts": {
     "start": "nodemon --watch src --watch ../common index.js"
   },

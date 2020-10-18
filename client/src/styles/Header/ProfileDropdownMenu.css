@@ -1,0 +1,60 @@
+.profile-dropdown-menu {
+    min-width: 180px;
+    background: #303030;
+}
+
+.profile-menu .user-full-name-info {
+    font-size: 17px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.profile-menu .username-info {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.profile-menu-divider {
+    margin: 1em 0 0 !important;
+    border-top: 1px solid #878787 !important;
+}
+
+.dropdown-item, .dropdown-header {
+    padding: 10px 12px;
+}
+
+.dropdown-item:hover {
+    background-color: #d1a700 !important;
+}
+
+.dropdown-item a {
+    padding: 10px 12px;
+    margin: -10px -12px;
+}
+
+.dropdown-item a:before {
+    position: inherit !important;
+}
+
+.nav-icon {
+    font-size: 20px;
+}
+
+.poll-icon {
+    margin-top: -4px;
+}
+
+@media (max-width: 768px) {
+    .app-title a {
+        font-size: 20px;
+    }
+
+    .app-menu > li {
+        padding: 0 15px;
+    }
+
+    .app-menu > li > a {
+        padding: 0 15px;
+        margin: 0 -15px;
+    }
+}

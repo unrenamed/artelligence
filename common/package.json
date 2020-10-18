@@ -1,6 +1,7 @@
 {
   "name": "common",
   "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

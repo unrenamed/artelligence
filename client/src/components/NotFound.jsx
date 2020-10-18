@@ -1,6 +1,7 @@
 import { Button, Result } from 'antd'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import withTitle from '../helpers/withTitle'
 
 const NotFound = () => {
 	const history = useHistory()
@@ -22,4 +23,4 @@ const NotFound = () => {
 	)
 }
 
-export default NotFound
+export default withTitle(NotFound, 'Page Not Found')

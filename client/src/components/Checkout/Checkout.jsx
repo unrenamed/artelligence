@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Elements, StripeProvider } from 'react-stripe-elements'
+import withTitle from '../../helpers/withTitle'
 import CheckoutForm from './CheckoutForm'
 
 const Checkout = () => {
@@ -17,4 +18,4 @@ const Checkout = () => {
 	)
 }
 
-export default Checkout
+export default withTitle(Checkout, 'Checkout')

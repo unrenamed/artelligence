@@ -1,5 +1,5 @@
-import { verify as jwtVerify } from 'jsonwebtoken';
-import { ErrorHandler } from '../../../common/errors/error';
+import { verify as jwtVerify } from 'jsonwebtoken'
+import { ErrorHandler } from '../../../common/errors/error'
 
 class AuthMiddleware {
 
@@ -19,7 +19,7 @@ class AuthMiddleware {
 								req.cookies.token;
 
 						if (!token) {
-								throw new ErrorHandler(401, 'Unauthorized: No token provided');
+								throw new ErrorHandler(403, 'Unauthorized: No token provided');
 						}
 
 						const decoded = jwtVerify(token, process.env.AUTH_SECRET);

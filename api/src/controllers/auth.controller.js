@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick } from 'lodash'
 
 class AuthController {
 
@@ -8,6 +8,7 @@ class AuthController {
 				this.authenticate = this.authenticate.bind(this);
 				this.register = this.register.bind(this);
 				this.logout = this.logout.bind(this);
+				this.getUser = this.getUser.bind(this);
 		}
 
 		async authenticate(req, res) {
@@ -35,6 +36,10 @@ class AuthController {
 		logout(req, res) {
 				res.clearCookie('token');
 				res.status(200).json({ message: 'Successfully logged out user session.' });
+		}
+
+		async getUser(req, res) {
+			res.status(200).json({ data: req.user })
 		}
 }
 
