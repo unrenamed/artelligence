@@ -3,6 +3,10 @@
     background: #303030;
 }
 
+.profile-menu .ant-dropdown {
+    top: 60px !important;
+}
+
 .profile-menu .user-full-name-info {
     font-size: 17px;
     font-weight: 600;

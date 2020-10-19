@@ -5,7 +5,7 @@ import PrivateRoute from './helpers/PrivateRoute'
 export const routes = [
 	{
 		path: '/',
-		Component: lazy(() => import('./components/Home')),
+		Component: lazy(() => import('./components/Home/Home')),
 		exact: true,
 		private: false
 	},

@@ -26,6 +26,7 @@
 .app-menu {
     float: right;
     background: transparent;
+    border: 0;
 }
 
 .app-menu > li {
