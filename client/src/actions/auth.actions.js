@@ -1,11 +1,11 @@
 import { message } from 'antd'
 import { authConstants } from '../constants/auth.constants'
-import { authService } from '../services/auth.service'
+import AuthService from '../services/auth.service'
 
 const login = ({ email, password }) => dispatch => {
 	dispatch({ type: authConstants.LOGIN_REQUEST })
 
-	authService.login({ email, password }).then(
+	AuthService.login({ email, password }).then(
 			() => {
 				dispatch({ type: authConstants.LOGIN_SUCCESS })
 				authActions.getLoggedUser()(dispatch)
@@ -20,7 +20,7 @@ const login = ({ email, password }) => dispatch => {
 const register = (user, successCallback) => dispatch => {
 	dispatch({ type: authConstants.REGISTER_REQUEST })
 
-	authService.register(user).then(
+	AuthService.register(user).then(
 			() => {
 				dispatch({ type: authConstants.REGISTER_SUCCESS })
 				successCallback()
@@ -35,7 +35,7 @@ const register = (user, successCallback) => dispatch => {
 const getLoggedUser = () => dispatch => {
 	dispatch({ type: authConstants.GET_LOGGED_USER_REQUEST })
 
-	authService.getLoggedUser().then(
+	AuthService.getLoggedUser().then(
 			user => {
 				dispatch({ type: authConstants.GET_LOGGED_USER_SUCCESS, payload: user })
 			},
@@ -48,7 +48,7 @@ const getLoggedUser = () => dispatch => {
 const logout = () => dispatch => {
 	dispatch({ type: authConstants.LOGOUT_REQUEST })
 
-	authService.logout().then(
+	AuthService.logout().then(
 			() => {
 				dispatch({ type: authConstants.LOGOUT_SUCCESS })
 			},

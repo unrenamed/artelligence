@@ -1,0 +1,9 @@
+.infinite-scroll-wrapper {
+    height: auto;
+}
+
+.infinite-scroll-wrapper .infinite-scroll-component {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

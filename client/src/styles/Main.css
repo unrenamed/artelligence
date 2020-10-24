@@ -1,5 +1,12 @@
 .site-layout {
-    height: 100%;
+    min-height: 100vh;
+}
+
+.site-layout-footer {
+    text-align: center;
+    position: sticky;
+    position: -webkit-sticky;
+    bottom: 0;
 }
 
 .site-layout-content {

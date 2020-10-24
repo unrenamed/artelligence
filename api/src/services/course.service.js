@@ -1,8 +1,8 @@
-import { map } from 'lodash';
-import { ErrorHandler } from '../../../common/errors/error';
-import models from '../models';
-import { upsert } from '../models/utils';
-import { avg } from '../utils';
+import { map } from 'lodash'
+import { ErrorHandler } from '../../../common/errors/error'
+import models from '../models'
+import { upsert } from '../models/utils'
+import { avg } from '../utils'
 
 const { Lesson, Course, CourseRating, LessonProgress } = models;
 
@@ -20,8 +20,16 @@ class CourseService {
 				return course;
 		}
 
-		async getAll() {
-				return await Course.findAll();
+		async getAll(limit, offset) {
+				return await Course.findAndCountAll({
+					offset,
+					limit,
+					order: [
+						['price', 'ASC'],
+						['title', 'ASC'],
+					],
+					where: { isActive: true }
+				});
 		}
 
 		async getById(courseId) {

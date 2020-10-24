@@ -32,14 +32,15 @@ class CourseController {
 		}
 
 		async getAll(req, res) {
-				const courses = await this.courseService.getAll();
-				res.status(200).json(courses);
+				const { limit, offset } = req.query;
+				const courses = await this.courseService.getAll(Number(limit), Number(offset));
+				res.status(200).json({ data: courses });
 		}
 
 		async getById(req, res) {
 				const { courseId } = req.params;
 				const course = await this.courseService.getById(courseId);
-				res.status(200).json(course);
+				res.status(200).json({ data: course });
 		}
 
 		async addLesson(req, res) {
@@ -105,7 +106,7 @@ class CourseController {
 				const { courseId } = req.params;
 				const { id: userId } = req.user;
 				const progress = await this.courseService.getCourseProgress(courseId, userId);
-				res.status(200).json(progress);
+				res.status(200).json({ data: progress });
 		}
 }
 

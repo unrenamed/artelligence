@@ -3,6 +3,7 @@
     height: 100px;
     border-radius: 50%;
     perspective: 800px;
+    margin-top: 40vh;
 }
 
 .loader {

@@ -1,0 +1,22 @@
+.all-courses-wrapper {
+    padding: 2em 5em;
+}
+
+.all-courses-wrapper > h1 {
+    font-size: 40px;
+    font-family: 'Titillium Web', sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
+.all-courses-wrapper > p {
+    font-size: 18px;
+    font-family: 'Titillium Web', sans-serif;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .all-courses-wrapper {
+        padding: 2em 0;
+    }
+}

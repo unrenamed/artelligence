@@ -16,6 +16,24 @@ export const routes = [
 		private: false
 	},
 	{
+		path: '/courses',
+		Component: lazy(() => import('./components/Course/AllCourses/AllCourses')),
+		exact: true,
+		private: false
+	},
+	{
+		path: '/courses/:id',
+		Component: lazy(() => import('./components/Course/CourseDetails/CourseDetails')),
+		exact: true,
+		private: false
+	},
+	{
+		path: '/my-courses',
+		Component: lazy(() => import('./components/Course/UserCourses/UserCourses')),
+		exact: true,
+		private: true
+	},
+	{
 		path: '/checkout',
 		Component: lazy(() => import('./components/Checkout/Checkout')),
 		exact: true,

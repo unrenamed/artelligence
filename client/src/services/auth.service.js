@@ -1,35 +1,9 @@
-import axios from 'axios'
+import requests from '../utils/request'
 
-const login = ({ email, password }) => {
-	return axios.post('/api/auth/authenticate', { email, password })
-			.then(handleResponse)
-			.catch(handleError)
+const AuthService = {
+	login: ({ email, password }) => requests.post('/api/auth/authenticate', { email, password }),
+	getLoggedUser: () => requests.get('/api/auth/loggedUser',),
+	logout: () => requests.post('/api/auth/logout'),
 }
 
-const getLoggedUser = () => {
-	return axios.get('/api/auth/loggedUser')
-			.then(handleResponse)
-			.catch(handleError)
-}
-
-const logout = () => {
-	return axios.post('/api/auth/logout')
-			.then(handleResponse)
-			.catch(handleError)
-}
-
-const handleResponse = response => {
-	const { data } = response.data
-	return Promise.resolve(data)
-}
-
-const handleError = error => {
-	const { message } = error.response.data
-	return Promise.reject(message)
-}
-
-export const authService = {
-	login,
-	getLoggedUser,
-	logout
-}
+export default AuthService

@@ -10,7 +10,7 @@ const Main = ({ children }) => {
 			<Layout className="site-layout">
 				<Header />
 				<Content className="site-layout-content">{ children }</Content>
-				<Footer style={ { textAlign: 'center' } }>Artelligence ©2020 Created by N. Nazolvan & Co.</Footer>
+				<Footer className="site-layout-footer">Artelligence ©2020 Created by N. Nazolvan & Co.</Footer>
 			</Layout>
 	)
 }
