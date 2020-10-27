@@ -1,0 +1,52 @@
+.app-title {
+  float: left;
+  padding: 0 2em;
+
+  a {
+    text-decoration: none;
+    line-height: 64px;
+    font-size: 21px;
+    display: inline-block;
+    color: #d1a700;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+.app-header {
+  background: linear-gradient(130deg, #0f0f0f 20%, #303030) !important;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  padding: 0;
+}
+
+.app-menu {
+  float: right;
+  background: transparent;
+  border: 0;
+
+  & > li {
+    padding: 0 1.5em !important;
+    margin: 0 0.5em !important;
+    top: 0 !important;
+    color: #dddddd;
+
+    a {
+      color: inherit !important;
+
+      .anticon {
+        margin: 0 !important;
+        font-size: 20px !important;
+      }
+    }
+  }
+
+  & > li:hover,
+  & > li.ant-menu-item-selected {
+    border-bottom: 2px solid #e5bc00 !important;
+    color: #e5bc00 !important;
+  }
+}

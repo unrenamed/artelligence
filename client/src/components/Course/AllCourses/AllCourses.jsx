@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { courseActions } from '../../../actions/course.action'
 import InfiniteScroll from '../../../helpers/InfiniteScroll'
 import withTitle from '../../../helpers/withTitle'
-import '../../../styles/Course/AllCourses.css'
+import '../../../styles/Course/AllCourses.scss'
 import CourseCard from '../CourseCard'
 
 const AllCourses = () => {
@@ -14,7 +14,10 @@ const AllCourses = () => {
 		if (firstLoad) {
 			dispatch(courseActions.fetchAll(0))
 		}
-	}, [dispatch, firstLoad])
+	}, [
+		dispatch,
+		firstLoad
+	])
 
 	const loadMore = () => {
 		dispatch(courseActions.fetchAll(page + 1))

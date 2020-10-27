@@ -2,7 +2,7 @@ import { Card } from 'antd'
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { skillLevels } from '../../constants/app.constants'
-import '../../styles/Course/CourseCard.css'
+import '../../styles/Course/CourseCard.scss'
 
 const { Meta } = Card
 

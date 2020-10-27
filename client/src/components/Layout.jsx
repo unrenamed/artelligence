@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from 'react-router'
 import { authActions } from '../actions/auth.actions'
 import AppLoadSpinner from '../helpers/AppLoadSpinner'
-import '../styles/Layout.css'
+import '../styles/Layout.scss'
 
 NProgress.configure({
 	showSpinner: false,

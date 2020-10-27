@@ -1,6 +1,6 @@
 import React from 'react'
 import InfiniteScrollComponent from 'react-infinite-scroll-component'
-import '../styles/InfiniteScroll.css'
+import '../styles/InfiniteScroll.scss'
 
 const InfiniteScroll = ({
 	data = [],

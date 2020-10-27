@@ -1,6 +1,6 @@
 import { Layout } from 'antd'
 import React from 'react'
-import '../styles/Main.css'
+import '../styles/Main.scss'
 import Header from './Header/Header'
 
 const { Content, Footer } = Layout

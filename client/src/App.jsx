@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Redirect, Switch } from 'react-router-dom'
-import './App.css'
+import './App.scss'
 import Layout from './components/Layout'
 import Main from './components/Main'
 import { getRoutes } from './routes'

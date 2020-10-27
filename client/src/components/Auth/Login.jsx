@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Redirect, Link } from 'react-router-dom'
 import { authActions } from '../../actions/auth.actions'
 import withTitle from '../../helpers/withTitle'
-import '../../styles/Auth/Login.css'
+import '../../styles/Auth/Login.scss'
 
 const { Item } = Form
 const { Password } = Input

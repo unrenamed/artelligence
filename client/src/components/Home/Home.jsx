@@ -1,6 +1,6 @@
 import React from 'react'
 import withTitle from '../../helpers/withTitle'
-import '../../styles/Home/Home.css'
+import '../../styles/Home/Home.scss'
 import Jumbotron from './Jumbotron'
 
 const Home = () => {

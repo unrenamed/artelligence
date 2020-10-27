@@ -1,0 +1,18 @@
+.course-card {
+  width: 500px;
+  margin: 2em;
+
+  .course-card-publisher {
+    margin-top: 3em;
+    margin-bottom: 0;
+    padding: 0;
+  }
+
+  .course-card-title .ant-card-meta-title {
+    font-size: 24px;
+  }
+  
+  @media (max-width: 600px) {
+    width: 350px;
+  }
+}

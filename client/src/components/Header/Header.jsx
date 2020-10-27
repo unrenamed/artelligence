@@ -4,7 +4,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
-import '../../styles/Header/Header.css'
+import '../../styles/Header/Header.scss'
 import ProfileDropdownMenu from './ProfileDropdownMenu'
 
 const { Header: AntHeader } = Layout

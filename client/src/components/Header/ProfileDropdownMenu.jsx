@@ -4,7 +4,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { authActions } from '../../actions/auth.actions'
-import '../../styles/Header/ProfileDropdownMenu.css'
+import '../../styles/Header/ProfileDropdownMenu.scss'
 
 const { Item } = Menu
 
