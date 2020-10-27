@@ -21,7 +21,7 @@ const CourseCard = ({ course = {}, loading = false }) => {
 			<Card hoverable
 						className="course-card"
 						cover={ <img alt="example"
-												 src="https://leverageedu.com/blog/wp-content/uploads/2019/08/Course-after-MBA.png" /> }
+												 src="https://i.ytimg.com/vi/TLlVhDv1TAA/maxresdefault.jpg" /> }
 						onClick={ redirectToCourseDetails }
 			>
 				<Meta className='course-card-title'

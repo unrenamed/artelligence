@@ -1,7 +1,11 @@
 import axios from 'axios'
+import { isEmpty } from 'lodash'
 
 const requests = {
-	get: (path, query) => handleRequest(() => axios.get(`${ path }?${ query }`)),
+	get: (path, query) => handleRequest(() => isEmpty(query) ?
+			axios.get(`${ path }`) :
+			axios.get(`${ path }?${ query }`)
+	),
 	post: (path, body) => handleRequest(() => axios.post(path, body)),
 	put: (path, body) => handleRequest(() => axios.put(path, body)),
 	patch: (path, body) => handleRequest(() => axios.patch(path, body)),

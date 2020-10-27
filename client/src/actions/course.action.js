@@ -16,6 +16,21 @@ const fetchAll = page => dispatch => {
 	)
 }
 
+const getById = courseId => dispatch => {
+	dispatch({ type: courseConstants.GET_COURSE_REQUEST })
+
+	CourseService.getById(courseId).then(
+			course => {
+				dispatch({ type: courseConstants.GET_COURSE_SUCCESS, payload: course })
+			},
+			error => {
+				dispatch({ type: courseConstants.GET_COURSE_FAILURE })
+				message.error(error)
+			}
+	)
+}
+
 export const courseActions = {
-	fetchAll
+	fetchAll,
+	getById
 }

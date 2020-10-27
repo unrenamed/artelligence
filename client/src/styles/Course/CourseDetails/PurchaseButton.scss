@@ -1,0 +1,109 @@
+@mixin button($bcolor, $url, $x1, $y1, $bor, $col) {
+  background: $bcolor;
+  -webkit-mask: url($url);
+  mask: url($url);
+  -webkit-mask-size: $x1 $y1;
+  mask-size: $x1 $y1;
+  border: $bor;
+  color: $col;
+}
+
+.course-purchase-btn {
+  position: relative;
+  width: 15em;
+  height: 3em;
+  overflow: hidden;
+  transition: 0.5s;
+  letter-spacing: 1px;
+  border-radius: .3rem;
+  font-family: 'Titillium Web', sans-serif;
+
+  button {
+    width: 100%;
+    padding: 0.2em;
+    height: 100%;
+    font-size: 18px;
+    letter-spacing: 1px;
+
+    @include button(
+                    #0f0f0f,
+                    "https://raw.githubusercontent.com/robin-dela/css-mask-animation/master/img/urban-sprite.png",
+                    3000%,
+                    100%,
+                    none,
+                    #e5bc00
+    );
+    cursor: pointer;
+    -webkit-animation: ani2 0.7s steps(29) forwards;
+    animation: ani2 0.7s steps(29) forwards;
+
+    &:hover {
+      -webkit-animation: ani 0.7s steps(29) forwards;
+      animation: ani 0.7s steps(29) forwards;
+    }
+  }
+}
+
+.mas {
+  font-family: 'Titillium Web', sans-serif;
+  position: absolute;
+  background-color: #e5bc00;
+  border: 2px solid #0f0f0f;
+  color: #0f0f0f;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  padding-top: 5px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  overflow: hidden;
+}
+
+@-webkit-keyframes ani {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+@keyframes ani {
+  from {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+@-webkit-keyframes ani2 {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+@keyframes ani2 {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}

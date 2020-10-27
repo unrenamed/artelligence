@@ -1,14 +1,25 @@
-import React from 'react'
-import withTitle from '../../../helpers/withTitle'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { courseActions } from '../../../actions/course.action'
+import '../../../styles/Course/CourseDetails/CourseDetails.scss'
+import DetailsHeader from './DetailsHeader'
 
 const CourseDetails = ({ match }) => {
 	const { id: courseId } = match.params
+	const { loading, data: course } = useSelector(state => state.currentCourse)
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		dispatch(courseActions.getById(courseId))
+	}, [])
+
+	if (loading) return <h1>Loading...</h1>
 
 	return (
-			<div>
-				{ courseId }
+			<div className='course-details'>
+				<DetailsHeader course={ course } />
 			</div>
 	)
 }
 
-export default withTitle(CourseDetails, '')
+export default CourseDetails
