@@ -4,7 +4,8 @@ const limit = (count, page) => `limit=${ count }&offset=${ page ? page * count :
 
 const CourseService = {
 	fetchAll: page => requests.get('/api/courses', limit(6, page)),
-	getById: courseId => requests.get(`/api/courses/${ courseId }`)
+	getById: courseId => requests.get(`/api/courses/${ courseId }`),
+	getTop: () => requests.get('/api/courses/top')
 }
 
 export default CourseService

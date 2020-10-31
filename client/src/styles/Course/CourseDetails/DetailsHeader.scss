@@ -102,7 +102,22 @@
     }
 
     .course-rating {
-      font-size: 20px;
+      display: flex;
+      align-items: center;
+
+      .rating {
+        font-size: 20px;
+      }
+
+      .reviews {
+        font-size: 16px;
+        display: inline-block;
+        margin-left: 0.5em;
+        margin-top: 0.4em;
+        margin-bottom: 0;
+        color: #fff;
+        font-family: 'Titillium Web', sans-serif;
+      }
     }
   }
 }

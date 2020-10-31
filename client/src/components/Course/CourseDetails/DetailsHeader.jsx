@@ -26,7 +26,10 @@ const DetailsHeader = ({ course }) => {
 						<h1>{ course.title }</h1>
 						<div>
 							<h3>{ getInfo() }</h3>
-							<Rate className='course-rating' disabled defaultValue={ 4.5 } />
+							<div className='course-rating'>
+								<Rate className='rating' disabled defaultValue={ course.rating } />
+								<p className='reviews'>({ course.numberOfReviews } reviews)</p>
+							</div>
 						</div>
 						<p>{ course.description }</p>
 						{ renderPurchaseButton() }

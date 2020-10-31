@@ -1,5 +1,7 @@
-import { map } from 'lodash'
+import { map, merge } from 'lodash'
+import { QueryTypes } from 'sequelize'
 import { ErrorHandler } from '../../../common/errors/error'
+import sequelize from '../config/db.config'
 import models from '../models'
 import { upsert } from '../models/utils'
 import { avg } from '../utils'
@@ -51,10 +53,9 @@ class CourseService {
 						throw new ErrorHandler(400, `Course with ID = ${ courseId } parameter was not found`);
 				}
 
-				return {
-						...course.dataValues,
-						rating: await this.getCourseRating(course)
-				};
+			  const rating = await this.getCourseRating(course);
+
+				return { ...course.dataValues, ...rating };
 		}
 
 		async addLesson(lessonDTO) {
@@ -75,7 +76,10 @@ class CourseService {
 
 		async getCourseRating(course) {
 				const ratings = map(await course.getUserRatings(), user => +user.courseRating.rating);
-				return avg(ratings);
+				return {
+						rating: avg(ratings),
+						numberOfReviews: ratings.length
+				};
 		}
 
 		async getCourseProgress(courseId, userId) {
@@ -113,6 +117,36 @@ class CourseService {
 		async purchaseCourse(courseId) {
 				console.log(`${ courseId } - purchased`);
 				// TODO
+		}
+
+		async getTopCourses() {
+			const query = `
+				select c.id                              as courseId,
+       			   count(cR.userId)                  as numberOfReviews,
+       				 sum(cR.rating) / count(cR.userId) as avgRating
+        from courses c
+        	inner join courseRatings cR on c.id = cR.courseId
+        where c.isActive is true
+        group by cR.courseId
+        order by avgRating desc,
+         				 numberOfReviews desc
+        limit 3
+      `;
+
+			const topRatings = map(
+					await sequelize.query(query, { raw: true, type: QueryTypes.SELECT }),
+					({ courseId, numberOfReviews, avgRating}) => ({ id: courseId, numberOfReviews, avgRating })
+			);
+
+			const topCoursesIds = map(topRatings, 'id');
+
+			const topCourses = await Course.findAll({
+				where: { id: topCoursesIds },
+				order: sequelize.literal('FIELD(course.id,' + topCoursesIds.join(',') + ')'), // follow the same order
+				raw: true
+			})
+
+			return merge(topCourses, topRatings);
 		}
 }
 

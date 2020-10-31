@@ -1,7 +1,7 @@
-import express from 'express';
-import { catchAsync } from '../../../common/errors/error';
-import config from '../config/app.config';
-import container from '../container';
+import express from 'express'
+import { catchAsync } from '../../../common/errors/error'
+import config from '../config/app.config'
+import container from '../container'
 
 const router = express.Router();
 
@@ -16,10 +16,13 @@ const {
 		completeLesson,
 		rateCourse,
 		getCourseProgress,
-		purchaseCourse
+		purchaseCourse,
+		getTopCourses
 } = container.cradle.courseController;
 
 router.get('/', catchAsync(getAll));
+
+router.get('/top', catchAsync(getTopCourses));
 
 router.get('/:courseId', catchAsync(getById));
 

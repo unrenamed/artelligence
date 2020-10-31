@@ -1,5 +1,5 @@
-import { pick } from 'lodash';
-import request from 'request-promise-native';
+import { pick } from 'lodash'
+import request from 'request-promise-native'
 
 class CourseController {
 
@@ -14,6 +14,7 @@ class CourseController {
 				this.purchaseCourse = this.purchaseCourse.bind(this);
 				this.completeLesson = this.completeLesson.bind(this);
 				this.getCourseProgress = this.getCourseProgress.bind(this);
+				this.getTopCourses = this.getTopCourses.bind(this);
 		}
 
 		async create(req, res) {
@@ -107,6 +108,11 @@ class CourseController {
 				const { id: userId } = req.user;
 				const progress = await this.courseService.getCourseProgress(courseId, userId);
 				res.status(200).json({ data: progress });
+		}
+
+		async getTopCourses(req, res) {
+			const courses = await this.courseService.getTopCourses();
+			res.status(200).json({ data: courses });
 		}
 }
 
