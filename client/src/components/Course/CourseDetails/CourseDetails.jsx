@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { courseActions } from '../../../actions/course.action'
 import '../../../styles/Course/CourseDetails/CourseDetails.scss'
+import CourseLessons from './CourseLessons'
 import DetailsHeader from './DetailsHeader'
 
 const CourseDetails = ({ match }) => {
@@ -18,6 +19,7 @@ const CourseDetails = ({ match }) => {
 	return (
 			<div className='course-details'>
 				<DetailsHeader course={ course } />
+				<CourseLessons lessons={ course.lessons } />
 			</div>
 	)
 }

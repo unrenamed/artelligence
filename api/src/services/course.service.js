@@ -1,5 +1,6 @@
-import { map, merge } from 'lodash'
+import { map, merge, find } from 'lodash'
 import { QueryTypes } from 'sequelize'
+import { lessonStatus } from '../../../common/constants/statuses'
 import { ErrorHandler } from '../../../common/errors/error'
 import sequelize from '../config/db.config'
 import models from '../models'
@@ -34,19 +35,11 @@ class CourseService {
 				});
 		}
 
-		async getById(courseId) {
+		async getById(courseId, user) {
 				const course = await Course.findByPk(courseId, {
-						include: [
-								{
-										model: Lesson,
-										as: 'lessons',
-										attributes: [
-												'id',
-												'title',
-												'number'
-										]
-								}
-						]
+						include: [{
+							model: Lesson, as: 'lessons', attributes: ['id', 'title', 'number']
+						}]
 				});
 
 				if (!course) {
@@ -54,8 +47,9 @@ class CourseService {
 				}
 
 			  const rating = await this.getCourseRating(course);
+				const lessons = await this.getCourseLessons(courseId, user)
 
-				return { ...course.dataValues, ...rating };
+				return { ...course.dataValues, ...rating, lessons };
 		}
 
 		async addLesson(lessonDTO) {
@@ -82,15 +76,28 @@ class CourseService {
 				};
 		}
 
-		async getCourseProgress(courseId, userId) {
-				const lessonsIds = map(await Lesson.findAll({ where: { courseId } }), 'id');
+		async getCourseLessons(courseId, user) {
+				const lessons = await Lesson.findAll({ where: { courseId } });
+				if (!user) return lessons;
+
+				return await this.getCourseLessonsWithProgress(courseId, user);
+		}
+
+		async getCourseLessonsWithProgress(courseId, user) {
+				const lessons = await Lesson.findAll({ where: { courseId } });
+				const lessonsIds = map(lessons, 'id');
 				const lessonsProgresses = await LessonProgress.findAll({
-						where: {
-								lessonId: lessonsIds,
-								userId
-						}
+						where: { lessonId: lessonsIds, userId: user.id }
 				});
-				return map(lessonsProgresses, ({ id, lessonId, isCompleted }) => ({ id, lessonId, isCompleted, courseId }));
+
+				const getLessonStatus = ({ id }) => {
+						const progress = find(lessonsProgresses, { 'lessonId': id })
+						return !!progress ?
+								progress.isCompleted ? lessonStatus.COMPLETED : lessonStatus.IN_PROGRESS :
+								lessonStatus.NOT_STARTED
+				}
+
+				return map(lessons, lesson => ({ ...lesson.dataValues, status: getLessonStatus(lesson) }));
 		}
 
 		async completeLesson(lessonId, userId, completeData) {

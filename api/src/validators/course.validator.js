@@ -61,7 +61,7 @@ class CourseValidator {
 						throw new ErrorHandler(400, `Can not add a lesson to a non-existing course`);
 				}
 
-				const lessonExist = !!await Lesson.findOne({ where: { number } });
+				const lessonExist = !!await Lesson.findOne({ where: { number, courseId } });
 				if (lessonExist) {
 						throw new ErrorHandler(400, `Lesson with number=${ number } already exists for course with ID=${ courseId }`);
 				}

@@ -5,18 +5,41 @@ class AuthMiddleware {
 
 		constructor({ userService }) {
 				this.userService = userService;
-
+				
 				this.withAuth = this.withAuth.bind(this);
 				this.allowOnly = this.allowOnly.bind(this);
+			  this.ensureLoggedUser = this.ensureLoggedUser.bind(this);
+				this.verifyToken = this.verifyToken.bind(this);
 		}
 
 		async withAuth(req, res, next) {
+				const { user, err } = await this.verifyToken(req);
+				if (!err) {
+						req.user = user;
+						next();
+				} else {
+					req.user = null;
+					next(err);
+				}
+		}
+
+		async ensureLoggedUser(req, res, next) {
+				const { user, err } = await this.verifyToken(req);
+				if (!err) {
+						req.user = user;
+						next();
+				} else {
+						req.user = null;
+				}
+		}
+
+		async verifyToken(req) {
 				try {
 						const token =
-								req.body.token ||
-								req.query.token ||
-								req.headers['x-access-token'] ||
-								req.cookies.token;
+							req.body.token ||
+							req.query.token ||
+							req.headers['x-access-token'] ||
+							req.cookies.token;
 
 						if (!token) {
 								throw new ErrorHandler(403, 'Unauthorized: No token provided');
@@ -26,11 +49,10 @@ class AuthMiddleware {
 						const user = await this.userService.getUserByEmail(decoded.email);
 
 						if (!!user) {
-								req.user = user;
-								next();
+								return { user, error: null };
 						}
 				} catch (err) {
-						next(err);
+						return { user: null, error: err };
 				}
 		}
 

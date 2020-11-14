@@ -27,7 +27,7 @@
 
   .slide {
     position: relative;
-    height: 350px;
+    height: 400px;
     cursor: pointer;
 
     .board {
@@ -42,7 +42,7 @@
     .content {
       position: absolute;
       width: 100%;
-      top: 30%;
+      top: 35%;
       transform: translate(0, 0%);
       display: flex;
       justify-content: center;

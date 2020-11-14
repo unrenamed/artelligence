@@ -2,9 +2,11 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import { handleError, logError } from '../../common/errors/error';
 import sequelize from './config/db.config';
+import container from './container'
 import routes from './routes';
 
 const app = express();
+const { ensureLoggedUser } = container.cradle.authMiddleware;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -23,10 +25,11 @@ app.use(function (req, res, next) {
 	next();
 });
 
-app.use('/api', routes);
-
+app.use(ensureLoggedUser);
 app.use(logError);
 app.use(handleError);
+
+app.use('/api', routes);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${ PORT }`));

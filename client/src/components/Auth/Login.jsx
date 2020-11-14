@@ -74,7 +74,7 @@ const LoginForm = ({ onFormSubmit, signingIn }) => (
 					<Checkbox>Keep me logged in</Checkbox>
 				</Item>
 
-				<Link className="login-form-forgot" href="">
+				<Link className="login-form-forgot" to="">
 					Forgot password
 				</Link>
 			</Item>

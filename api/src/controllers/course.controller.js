@@ -13,7 +13,6 @@ class CourseController {
 				this.rateCourse = this.rateCourse.bind(this);
 				this.purchaseCourse = this.purchaseCourse.bind(this);
 				this.completeLesson = this.completeLesson.bind(this);
-				this.getCourseProgress = this.getCourseProgress.bind(this);
 				this.getTopCourses = this.getTopCourses.bind(this);
 		}
 
@@ -40,7 +39,8 @@ class CourseController {
 
 		async getById(req, res) {
 				const { courseId } = req.params;
-				const course = await this.courseService.getById(courseId);
+				const { user } = req;
+				const course = await this.courseService.getById(courseId, user);
 				res.status(200).json({ data: course });
 		}
 
@@ -101,13 +101,6 @@ class CourseController {
 				const completeMessage = await this.courseService.completeLesson(lessonId, userId, completeData);
 
 				res.status(201).json({ message: completeMessage });
-		}
-
-		async getCourseProgress(req, res) {
-				const { courseId } = req.params;
-				const { id: userId } = req.user;
-				const progress = await this.courseService.getCourseProgress(courseId, userId);
-				res.status(200).json({ data: progress });
 		}
 
 		async getTopCourses(req, res) {
