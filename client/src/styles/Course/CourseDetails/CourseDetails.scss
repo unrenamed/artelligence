@@ -17,8 +17,8 @@
   .lesson-logo {
     width: 350px;
 
-    @media (min-width: 700px) and (max-width: 1000px) {
-      width: 300px;
+    @media (min-width: 700px) and (max-width: 1200px) {
+      width: 250px;
     }
 
     @media (min-width: 0px) and (max-width: 700px) {
@@ -82,5 +82,57 @@
 
   @media (min-width: 1400px) {
     width: 65vw;
+  }
+}
+
+.course-lessons-wrapper {
+  margin-top: 175px;
+
+  @media (min-width: 0px) and (max-width: 700px) {
+    margin-top: 50%;
+  }
+}
+
+.ant-timeline-item-content {
+  top: 0;
+  transform: translateY(-40%);
+  margin-left: 3em;
+  left: 50%;
+
+  @media (min-width: 0px) and (max-width: 700px) {
+    margin-left: 2em;
+  }
+}
+
+.ant-timeline-item-head {
+  width: 15px;
+  height: 15px;
+}
+
+.ant-timeline-item-tail {
+  border-left: 1px solid #cecece;
+  margin-left: 3px;
+}
+
+.ant-timeline-item-label {
+  top: -8px;
+  width: calc(50% - 20px);
+  font-size: 18px !important;
+  font-family: 'Titillium Web', sans-serif !important;
+
+  @media (min-width: 0px) and (max-width: 1000px) {
+    display: none;
+  }
+}
+
+.ant-timeline-item {
+  left: -40%;
+
+  @media (min-width: 1000px) and (max-width: 1200px) {
+    left: -45%;
+  }
+
+  @media (min-width: 0px) and (max-width: 1000px) {
+    left: -50%;
   }
 }
