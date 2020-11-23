@@ -1,0 +1,129 @@
+.checkout-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Titillium Web', sans-serif;
+  padding: 1em;
+  max-width: 550px;
+  margin: 0 auto;
+
+  .header {
+    font-size: 30px;
+    font-weight: 600;
+    color: #0f0f0f;
+    margin-top: 1em;
+  }
+
+  .table-wrapper {
+    width: 100%;
+    -webkit-box-shadow: 15px 15px 75px 0 rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 15px 15px 75px 0 rgba(34, 60, 80, 0.2);
+    box-shadow: 15px 15px 75px 0 rgba(34, 60, 80, 0.2);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: #fafafa;
+  }
+
+  .item-info-column {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 2em 0.5em 0;
+
+    .item-name {
+      font-size: 18px;
+      margin-bottom: 0;
+      font-weight: 600;
+    }
+
+    .item-info {
+      color: #8a8a8a;
+      margin-bottom: 0;
+    }
+  }
+
+  .item-price-column {
+    font-size: 16px;
+    color: #0f0f0f
+  }
+
+  .table-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    h1 {
+      margin-bottom: 0;
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    p {
+      color: #8a8a8a;
+      margin-bottom: 0;
+      font-weight: 500;
+    }
+  }
+
+  .name-column, .price-column {
+    color: #8a8a8a;
+  }
+
+  .ant-select-focused .ant-select-selector,
+  .ant-select-selector:focus,
+  .ant-select-selector:active,
+  .ant-select-open .ant-select-selector {
+    border-color: #d9d9d9 !important;
+    box-shadow: none !important;
+  }
+
+  .purchase-button {
+    width: 75%;
+    height: 100%;
+    padding: 0.5em 2em;
+    margin: 2em 0;
+    border-radius: 0.5em;
+    font-size: 18px;
+    font-weight: 600;
+    background: #0f0f0f;
+    border-color: #0f0f0f;
+    box-shadow: 0px 20px 10px -11px rgba(0, 0, 0, 0.35);
+
+    &:active {
+      box-shadow: 0px 20px 10px -16px rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  .purchase-button span:first-child {
+    margin-right: 0.5em;
+  }
+
+  .security-wrapper {
+    margin-top: 1em;
+  }
+
+  .security-icon {
+    font-size: 35px;
+  }
+
+  .security-header {
+    margin-bottom: 0.1em;
+    margin-top: 0.5em;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .security-text {
+    color: #8a8a8a;
+    font-size: 15px;
+  }
+
+  @media (min-width: 0px) and (max-width: 450px) {
+    .header {
+      font-size: 25px;
+    }
+
+    .purchase-button {
+      width: 100%;
+    }
+  }
+}

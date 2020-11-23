@@ -1,10 +1,14 @@
 import { Rate } from 'antd'
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { skillLevels } from '../../../constants/app.constants'
 import '../../../styles/Course/CourseDetails/DetailsHeader.scss'
 import PurchaseButton from './PurchaseButton'
 
 const DetailsHeader = ({ course }) => {
+	const history = useHistory()
+	const currentUser = useSelector(state => state.auth.currentUser)
 
 	const getPrice = () =>
 			Number(course.price) === 0 ? 'Free' : `$ ${ course.price }`
@@ -12,7 +16,9 @@ const DetailsHeader = ({ course }) => {
 	const getInfo = () =>
 			`Course • ${ skillLevels[course.level] } • ${ getPrice() }`
 
-	const buyCourse = () => alert('PURCHASED')
+	const buyCourse = () => !currentUser ?
+			history.push('/login') :
+			history.push('/checkout', { course })
 
 	const renderPurchaseButton = () => Number(course.price) !== 0 ?
 			<PurchaseButton course={ course } onClick={ buyCourse } /> : null

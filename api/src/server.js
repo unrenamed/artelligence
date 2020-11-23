@@ -26,10 +26,11 @@ app.use(function (req, res, next) {
 });
 
 app.use(ensureLoggedUser);
-app.use(logError);
-app.use(handleError);
 
 app.use('/api', routes);
+
+app.use(logError);
+app.use(handleError);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => console.log(`Server running on port ${ PORT }`));
