@@ -1,4 +1,4 @@
-import { HomeOutlined, BookOutlined, AreaChartOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { HomeOutlined, BookOutlined, AreaChartOutlined } from '@ant-design/icons'
 import { Layout, Menu } from 'antd'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -32,23 +32,18 @@ const Header = ({ location: { pathname } }) => {
 					<AreaChartOutlined />
 				</Link>
 			</Item>,
-			<Item key="/orders" title='Orders'>
-				<Link to="/orders">
-					<ShoppingCartOutlined />
-				</Link>
-			</Item>,
 			<Item key="/profile" className="profile-menu" title='Profile'>
 				<ProfileDropdownMenu currentUser={ currentUser } />
 			</Item>
 		]
 	} else {
 		menuItems = [
-			<Menu.Item key="/login" title='Login'>
+			<Item key="/login" title='Login'>
 				<Link to="/login">LOGIN</Link>
-			</Menu.Item>,
-			<Menu.Item key="/signup" title='Sign up'>
+			</Item>,
+			<Item key="/signup" title='Sign up'>
 				<Link to="/signup">SIGNUP</Link>
-			</Menu.Item>
+			</Item>
 		]
 	}
 

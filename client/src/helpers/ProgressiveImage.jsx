@@ -8,7 +8,6 @@ const ProgressiveImage = ({ className, src, placeholder }) => (
 						<div className={ className }
 								 style={ {
 									 backgroundImage: `url(${ src })`,
-									 transform: loading ? 'scale(1.05)' : 'none',
 									 filter: loading ? 'blur(10px)' : 'none',
 									 transition: 'all .8s ease-out',
 									 backgroundSize: 'cover',

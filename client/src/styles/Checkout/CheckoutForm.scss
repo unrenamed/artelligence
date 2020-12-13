@@ -1,0 +1,84 @@
+.checkout-result {
+
+  .ant-result-title {
+    color: #eeeeee;
+  }
+
+  .ant-result-subtitle {
+    color: #929292;
+  }
+}
+
+.checkout-form {
+
+  .cancel-button {
+    width: 60%;
+    height: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 0.5em;
+    margin-left: 1em;
+    background: inherit;
+    color: #929292;
+    border-color: #acacac;
+    text-transform: uppercase;
+  }
+
+  .purchase-button {
+    width: 100%;
+    height: 100%;
+    padding: 0.5em;
+    font-size: 15px;
+    font-weight: 600;
+    color: #000;
+    background: #ffc023;
+    border-color: #ffc023;
+    text-transform: uppercase;
+  }
+
+  .checkout-header {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 18px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    color: #a97e00;
+  }
+
+  .submit-form-item {
+    margin-bottom: 10px;
+
+    & .ant-form-item-control-input-content {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .ant-form-item-label label {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #eaeaea;
+  }
+
+  .date-cvc-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: -5px;
+
+    & > :nth-child(2n) {
+      margin-left: 5em;
+    }
+  }
+
+  .form-error-message {
+    color: #ff0000;
+  }
+
+  .submit-form-item {
+    .cancel-button[disabled]:hover {
+      color: #929292;
+      border-color: #acacac;
+      background-color: transparent;
+    }
+  }
+}

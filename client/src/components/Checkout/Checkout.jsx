@@ -1,17 +1,17 @@
 import { CreditCardOutlined, LockOutlined, SecurityScanOutlined } from '@ant-design/icons'
 import { Table, Button } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation, Redirect } from 'react-router'
-import { Elements, StripeProvider } from 'react-stripe-elements'
 import { skillLevels } from '../../constants/app.constants'
 import withTitle from '../../helpers/withTitle'
 import '../../styles/Checkout/Checkout.scss'
-import CheckoutForm from './CheckoutForm'
+import CheckoutDrawer from './CheckoutDrawer'
 
 const { Column } = Table
 
 const Checkout = () => {
 	const location = useLocation()
+	const [formVisible, setFormVisible] = useState(false)
 
 	if (!location.state || !location.state.course) {
 		return <Redirect to='/404' />
@@ -48,14 +48,6 @@ const Checkout = () => {
 			</div>
 	)
 
-	const renderForm = _ => (
-			<StripeProvider apiKey='pk_test_kKuARa71epB6JrYPuDJm7nRL'>
-				<Elements>
-					<CheckoutForm />
-				</Elements>
-			</StripeProvider>
-	)
-
 	return (
 			<div className='checkout-wrapper'>
 				<h1 className='header'>Complete Your Purchase</h1>
@@ -69,9 +61,14 @@ const Checkout = () => {
 					</Table>
 				</div>
 
-				<Button className='purchase-button' type="primary">
+				<Button className='purchase-button' type="primary" onClick={ () => setFormVisible(true) }>
 					<CreditCardOutlined /> PLACE YOUR ORDER
 				</Button>
+
+				<CheckoutDrawer
+						course={ course }
+						visible={ formVisible }
+						onClose={ () => setFormVisible(false) } />
 
 				<div className='security-wrapper'>
 					<LockOutlined className='security-icon' />

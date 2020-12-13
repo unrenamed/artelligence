@@ -2,6 +2,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { Form, Input, Button, Checkbox, Row, Col } from 'antd'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import { Redirect, Link } from 'react-router-dom'
 import { authActions } from '../../actions/auth.actions'
 import withTitle from '../../helpers/withTitle'
@@ -13,6 +14,7 @@ const { Password } = Input
 const Login = () => {
 	const { currentUser, signingIn } = useSelector(state => state.auth)
 	const dispatch = useDispatch()
+	const history = useHistory()
 
 	if (currentUser) {
 		return <Redirect to="/" />
@@ -21,6 +23,7 @@ const Login = () => {
 	const onFinish = values => {
 		const { email, password, remember } = values
 		dispatch(authActions.login({ email, password, remember }))
+		history.goBack();
 	}
 
 	return (

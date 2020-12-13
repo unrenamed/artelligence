@@ -119,5 +119,24 @@
         font-family: 'Titillium Web', sans-serif;
       }
     }
+
+    .info .purchased-block {
+      display: block;
+      width: 11em;
+      background-color: #ffffff40;
+      border: 1px solid #0f0f0f;
+      color: #000;
+      text-align: center;
+      font-size: 16px;
+      font-family: 'Titillium Web', sans-serif;
+      text-transform: uppercase;
+      border-radius: .3em;
+      padding: .3em;
+
+      & .icon {
+        color: #52c41a;
+        margin-right: .3em;
+      }
+    }
   }
 }

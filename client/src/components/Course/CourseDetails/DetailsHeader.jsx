@@ -1,3 +1,4 @@
+import { CheckOutlined } from '@ant-design/icons'
 import { Rate } from 'antd'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -20,8 +21,10 @@ const DetailsHeader = ({ course }) => {
 			history.push('/login') :
 			history.push('/checkout', { course })
 
-	const renderPurchaseButton = () => Number(course.price) !== 0 ?
-			<PurchaseButton course={ course } onClick={ buyCourse } /> : null
+	const renderPurchaseButton = () =>
+			!course.isPurchased && Number(course.price) !== 0
+					? <PurchaseButton course={ course } onClick={ buyCourse } />
+					: <div className='purchased-block'><CheckOutlined className='icon' /> Purchased</div>
 
 	return (
 			<div className='course-details-header'>

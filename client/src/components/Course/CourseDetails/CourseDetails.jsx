@@ -14,7 +14,7 @@ const CourseDetails = ({ match }) => {
 		dispatch(courseActions.getById(courseId))
 	}, [])
 
-	if (loading) return <h1>Loading...</h1>
+	if (loading) return null
 
 	return (
 			<div className='course-details'>
